@@ -266,6 +266,12 @@
           </div>
         </div>
 
+        <!-- Customer delivery inputs for WhatsApp order -->
+        <div class="order-inputs-group">
+          <input type="text" id="customer-name" class="order-text-input" placeholder="Tu Nombre (ej. Carlos Gómez)" autocomplete="name">
+          <input type="text" id="customer-address" class="order-text-input" placeholder="Dirección / Ciudad de entrega" autocomplete="street-address">
+        </div>
+
         <!-- Quantity & Price Row -->
         <div class="qty-price-row">
           <div class="qty-counter">
@@ -280,19 +286,43 @@
           </div>
         </div>
 
-        <!-- CTA Order Button -->
-        <button class="btn-primary-order" id="order-submit-btn">
-          <span>AJOUTER AU PANIER</span>
-          <span>⚡</span>
+        <!-- WhatsApp Checkout CTA Button -->
+        <button class="btn-whatsapp-order" id="order-whatsapp-btn">
+          <span>PEDIR POR WHATSAPP</span>
+          <span class="wsp-icon-symbol">📲</span>
         </button>
 
+        <!-- Secondary Add to Cart button -->
+        <button class="btn-secondary-cart" id="order-submit-btn">
+          <span>O AGREGAR AL CARRITO</span>
+        </button>
+
+        <div class="wsp-merchant-config-row">
+          <span id="current-wsp-display">📲 Recibe pedidos al: +54 9 11 2345-6789</span>
+          <button id="config-wsp-phone-btn" class="btn-text-link">Cambiar número</button>
+        </div>
+
         <p class="order-guarantee-note">
-          📦 Livraison express offerte • Aluminium 100% recyclable • Garantie satisfait ou remboursé 30 jours
+          📦 Envío express directo • Confirmación instantánea por WhatsApp • Pago contra entrega o transferencia
         </p>
       </div>
     </section>
 
   </main>
+
+  <!-- ========================================================================
+       MOBILE STICKY BOTTOM BAR (Mobile Floating Checkout)
+       ======================================================================== -->
+  <div id="mobile-sticky-bar" class="mobile-sticky-bar">
+    <div class="sticky-info">
+      <span class="sticky-flavor flavor-name-dynamic">DOUBLE LITCHI</span>
+      <span class="sticky-price" id="sticky-price-display">$38.99</span>
+    </div>
+    <button class="sticky-btn-wsp" id="sticky-wsp-btn">
+      <span>PEDIR X WHATSAPP</span>
+      <span>📲</span>
+    </button>
+  </div>
 
   <!-- ========================================================================
        CART SLIDE-OUT DRAWER
@@ -315,8 +345,8 @@
         <span>SOUS-TOTAL</span>
         <span id="cart-subtotal">$38.99</span>
       </div>
-      <button class="btn-primary-order" onclick="alert('Commande validée ! Bienvenue dans le flow OHIO.')">
-        PASSER LA COMMANDE
+      <button class="btn-whatsapp-order" id="cart-wsp-checkout-btn">
+        <span>FINALIZAR POR WHATSAPP 📲</span>
       </button>
     </div>
   </aside>

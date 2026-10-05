@@ -158,13 +158,106 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ---------------------------------------------------------------------------
+  // WhatsApp Checkout & Merchant Phone System
+  // ---------------------------------------------------------------------------
+  let merchantPhone = localStorage.getItem('ohio_wsp_phone') || '5491123456789';
+
+  function updateMerchantDisplay() {
+    const displayEl = document.getElementById('current-wsp-display');
+    if (displayEl) {
+      displayEl.textContent = `📲 Recibe pedidos al: +${merchantPhone}`;
+    }
+  }
+  updateMerchantDisplay();
+
+  const configPhoneBtn = document.getElementById('config-wsp-phone-btn');
+  if (configPhoneBtn) {
+    configPhoneBtn.addEventListener('click', () => {
+      const userPhone = prompt(
+        'Ingresa tu número de WhatsApp con código de país (sin + ni espacios, ej: 5491123456789):',
+        merchantPhone
+      );
+      if (userPhone && userPhone.trim().length >= 8) {
+        merchantPhone = userPhone.replace(/[^0-9]/g, '');
+        localStorage.setItem('ohio_wsp_phone', merchantPhone);
+        updateMerchantDisplay();
+        alert(`¡Número actualizado! Ahora los pedidos llegarán a: +${merchantPhone}`);
+      }
+    });
+  }
+
+  function launchWhatsAppCheckout() {
+    if (window.soundEngine) {
+      window.soundEngine.playCanOpen();
+    }
+
+    const flavor = FLAVORS[currentFlavor];
+    const customerName = document.getElementById('customer-name')?.value.trim() || 'No especificado';
+    const customerAddress = document.getElementById('customer-address')?.value.trim() || 'A coordinar';
+    const totalPrice = (packPrices[selectedPack] * packQuantity).toFixed(2);
+
+    const message = 
+`👋 *¡Hola! Quiero hacer un pedido desde la web de OHIO:*
+
+🥤 *Producto:* OHIO Clean Flow Energy
+⚡ *Sabor:* ${flavor.name}
+📦 *Formato:* Pack de ${selectedPack} latas
+🔢 *Cantidad:* ${packQuantity} pack(s)
+💰 *Total:* $${totalPrice}
+
+👤 *Cliente:* ${customerName}
+📍 *Entrega:* ${customerAddress}
+
+¿Me confirman disponibilidad y datos de pago? ¡Muchas gracias!`;
+
+    const cleanPhone = merchantPhone.replace(/[^0-9]/g, '');
+    const wspUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+
+    // Open WhatsApp in new tab/app
+    window.open(wspUrl, '_blank');
+  }
+
+  // Bind WhatsApp order buttons
+  const wspOrderBtn = document.getElementById('order-whatsapp-btn');
+  if (wspOrderBtn) {
+    wspOrderBtn.addEventListener('click', launchWhatsAppCheckout);
+  }
+
+  const cartWspCheckoutBtn = document.getElementById('cart-wsp-checkout-btn');
+  if (cartWspCheckoutBtn) {
+    cartWspCheckoutBtn.addEventListener('click', launchWhatsAppCheckout);
+  }
+
+  const stickyWspBtn = document.getElementById('sticky-wsp-btn');
+  if (stickyWspBtn) {
+    stickyWspBtn.addEventListener('click', () => {
+      const orderSec = document.getElementById('section-order');
+      if (orderSec) {
+        orderSec.scrollIntoView({ behavior: 'smooth' });
+        // Focus name input if available
+        setTimeout(() => {
+          document.getElementById('customer-name')?.focus();
+        }, 600);
+      }
+    });
+  }
+
+  // ---------------------------------------------------------------------------
   // Pack Selector & Cart System
   // ---------------------------------------------------------------------------
   function updateOrderDisplay() {
     const basePrice = packPrices[selectedPack];
     const totalPrice = (basePrice * packQuantity).toFixed(2);
-    document.getElementById('order-total-price').textContent = `$${totalPrice}`;
+    const priceText = `$${totalPrice}`;
+
+    document.getElementById('order-total-price').textContent = priceText;
     document.getElementById('pack-qty-display').textContent = packQuantity;
+
+    // Mobile sticky bar price update
+    const stickyPriceEl = document.getElementById('sticky-price-display');
+    if (stickyPriceEl) {
+      stickyPriceEl.textContent = priceText;
+    }
   }
 
   document.querySelectorAll('.pack-option-btn').forEach((btn) => {

@@ -991,31 +991,229 @@ body.show-hotspots .hotspot-anchor-dot {
   color: #ffffff;
 }
 
-/* Responsive adjustments */
-@media (max-width: 900px) {
-  .section-stage {
-    padding: 100px 6vw;
-  }
-  .flavor-cards-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .hero-bottom-controls {
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-  }
+/* ==========================================================================
+   WHATSAPP ORDERING & MOBILE CHECKOUT STYLING
+   ========================================================================== */
+.order-inputs-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 22px;
 }
 
-@media (max-width: 600px) {
-  .flavor-cards-grid {
-    grid-template-columns: 1fr;
+.order-text-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 14px;
+  outline: none;
+  transition: var(--transition-smooth);
+}
+
+.order-text-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.order-text-input:focus {
+  border-color: #25D366;
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 0 15px rgba(37, 211, 102, 0.25);
+}
+
+/* WhatsApp Emerald Primary Button */
+.btn-whatsapp-order {
+  width: 100%;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  color: #ffffff;
+  border: none;
+  font-family: var(--font-mono);
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  padding: 18px 24px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.38);
+  transition: var(--transition-smooth);
+  margin-bottom: 12px;
+}
+
+.btn-whatsapp-order:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 12px 35px rgba(37, 211, 102, 0.6);
+  filter: brightness(1.08);
+}
+
+.wsp-icon-symbol {
+  font-size: 18px;
+}
+
+.btn-secondary-cart {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 12px 20px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  margin-bottom: 16px;
+}
+
+.btn-secondary-cart:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.wsp-merchant-config-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--color-text-dim);
+  padding: 6px 4px;
+}
+
+.btn-text-link {
+  background: none;
+  border: none;
+  color: #25D366;
+  cursor: pointer;
+  text-decoration: underline;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  transition: color 0.2s;
+}
+
+.btn-text-link:hover {
+  color: #55ef88;
+}
+
+/* ==========================================================================
+   MOBILE FLOATING CHECKOUT BAR
+   ========================================================================== */
+.mobile-sticky-bar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 80px;
   }
-  .order-box {
-    padding: 24px;
+
+  /* Make sticky bar visible on phones */
+  .mobile-sticky-bar {
+    display: flex;
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    z-index: 90;
+    background: rgba(14, 14, 20, 0.88);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid rgba(37, 211, 102, 0.4);
+    border-radius: var(--radius-full);
+    padding: 10px 18px;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.7), 0 0 20px rgba(37, 211, 102, 0.25);
   }
-  .site-footer {
+
+  .sticky-info {
+    display: flex;
     flex-direction: column;
-    gap: 20px;
-    text-align: center;
+  }
+
+  .sticky-flavor {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 800;
+    color: #ffffff;
+  }
+
+  .sticky-price {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+
+  .sticky-btn-wsp {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    color: #ffffff;
+    border: none;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 10px 16px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Optimize layout for vertical screens */
+  .section-stage {
+    padding: 90px 6vw;
+  }
+
+  .flavor-profile-content,
+  .nutrition-cards-column,
+  .order-box {
+    max-width: 100%;
+  }
+
+  /* Hide SVG hotspot lines on narrow screens so text is crystal clear */
+  #hotspots-svg,
+  .hotspot-anchor-dot {
+    display: none !important;
+  }
+
+  .stat-grid-mini {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .stat-box {
+    padding: 12px 6px;
+  }
+
+  .stat-val {
+    font-size: 1.4rem;
+  }
+
+  .header-nav {
+    top: 14px;
+    padding: 0 4vw;
+  }
+
+  .nav-pill-wrapper {
+    padding: 6px 12px;
+  }
+
+  .sound-btn-text {
+    display: none;
+  }
+
+  .nav-cta-btn {
+    padding: 8px 14px;
+    font-size: 11px;
   }
 }

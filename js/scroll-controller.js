@@ -55,13 +55,28 @@ class ScrollController {
       }
     });
 
+    const isMobile = window.innerWidth < 768;
+    const xOffsetFlavor = isMobile ? 0 : 1.7;
+    const yOffsetFlavor = isMobile ? 0.9 : -0.1;
+    const zCamFlavor = isMobile ? 10.0 : 8.4;
+
+    const xOffsetNutri = isMobile ? 0 : -1.7;
+    const yOffsetNutri = isMobile ? 1.0 : 0.0;
+    const zCamNutri = isMobile ? 9.8 : 8.0;
+
+    const yOffsetManifesto = isMobile ? -1.1 : -1.8;
+    const zCamManifesto = isMobile ? 8.2 : 6.8;
+
+    const xOffsetOrder = isMobile ? 0 : -1.8;
+    const yOffsetOrder = isMobile ? 1.3 : 0.0;
+    const zCamOrder = isMobile ? 9.8 : 8.2;
+
     // =========================================================================
     // STEP 1: Hero to Section 2 (Flavor Showcase)
-    // Can glides right, rotates smoothly, tilts, camera pushes slightly in
     // =========================================================================
     tl.to(this.can.position, {
-      x: 1.7,
-      y: -0.1,
+      x: xOffsetFlavor,
+      y: yOffsetFlavor,
       z: 0.5,
       ease: 'power1.inOut'
     }, 0.05);
@@ -73,23 +88,21 @@ class ScrollController {
 
     tl.to(this.can, {
       baseRotX: 0.1,
-      baseRotZ: -0.18,
+      baseRotZ: isMobile ? -0.05 : -0.18,
       ease: 'power1.inOut'
     }, 0.05);
 
     tl.to(this.camera.position, {
-      z: 8.4,
+      z: zCamFlavor,
       ease: 'power1.inOut'
     }, 0.05);
 
     // =========================================================================
     // STEP 2: Section 2 to Section 3 (Nutritional Facts / Callouts)
-    // Can rotates 180 deg to show nutritional table and barcode on the back!
-    // Can moves to the left side
     // =========================================================================
     tl.to(this.can.position, {
-      x: -1.7,
-      y: 0.0,
+      x: xOffsetNutri,
+      y: yOffsetNutri,
       z: 0.2,
       ease: 'power1.inOut'
     }, 0.30);
@@ -106,7 +119,7 @@ class ScrollController {
     }, 0.30);
 
     tl.to(this.camera.position, {
-      z: 8.0,
+      z: zCamNutri,
       ease: 'power1.inOut'
     }, 0.30);
 
@@ -123,11 +136,10 @@ class ScrollController {
 
     // =========================================================================
     // STEP 3: Section 3 to Section 4 ("ZERO BULLSHIT" / Macro Close-Up)
-    // Low camera angle looking UP at the pull-tab & lid rim
     // =========================================================================
     tl.to(this.can.position, {
       x: 0,
-      y: -1.8,
+      y: yOffsetManifesto,
       z: 1.5,
       ease: 'power2.inOut'
     }, 0.58);
@@ -138,13 +150,13 @@ class ScrollController {
     }, 0.58);
 
     tl.to(this.can, {
-      baseRotX: 0.85, // Tilting forward so top lid is in full dramatic view
+      baseRotX: 0.85,
       baseRotZ: -0.15,
       ease: 'power2.inOut'
     }, 0.58);
 
     tl.to(this.camera.position, {
-      z: 6.8,
+      z: zCamManifesto,
       ease: 'power2.inOut'
     }, 0.58);
 
@@ -162,17 +174,16 @@ class ScrollController {
 
     // =========================================================================
     // STEP 4: Section 4 to Section 5 (Flavor Multiverse Carousel)
-    // Can returns to center, level angle, ready for interactive spin
     // =========================================================================
     tl.to(this.can.position, {
       x: 0,
-      y: 0.2,
+      y: isMobile ? 0.8 : 0.2,
       z: 0.5,
       ease: 'power2.inOut'
     }, 0.78);
 
     tl.to(this.can.rotation, {
-      y: Math.PI * 2.5, // full spin back to front
+      y: Math.PI * 2.5,
       ease: 'power2.inOut'
     }, 0.78);
 
@@ -183,17 +194,16 @@ class ScrollController {
     }, 0.78);
 
     tl.to(this.camera.position, {
-      z: 8.6,
+      z: isMobile ? 10.2 : 8.6,
       ease: 'power2.inOut'
     }, 0.78);
 
     // =========================================================================
     // STEP 5: Section 5 to Section 6 (Pre-Order / Cart)
-    // Can moves to left side in an isometric hero pose, purchase box on right
     // =========================================================================
     tl.to(this.can.position, {
-      x: -1.8,
-      y: 0.0,
+      x: xOffsetOrder,
+      y: yOffsetOrder,
       z: 0.8,
       ease: 'power1.inOut'
     }, 0.95);
@@ -210,7 +220,7 @@ class ScrollController {
     }, 0.95);
 
     tl.to(this.camera.position, {
-      z: 8.2,
+      z: zCamOrder,
       ease: 'power1.inOut'
     }, 0.95);
 

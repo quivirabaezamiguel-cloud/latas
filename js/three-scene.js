@@ -20,13 +20,14 @@ class CanExperienceScene {
   initScene() {
     this.scene = new THREE.Scene();
 
+    const isMobile = window.innerWidth < 768;
     this.camera = new THREE.PerspectiveCamera(
-      38,
+      isMobile ? 54 : 38,
       window.innerWidth / window.innerHeight,
       0.1,
       100
     );
-    this.camera.position.set(0, 0, 9.2);
+    this.camera.position.set(0, 0, isMobile ? 10.6 : 9.2);
 
     this.renderer = new THREE.WebGLRenderer({
       alpha: true,
@@ -166,6 +167,15 @@ class CanExperienceScene {
   initEvents() {
     window.addEventListener('resize', this.onWindowResize.bind(this));
     window.addEventListener('mousemove', this.onMouseMove.bind(this));
+
+    // Touch support for mobile phones
+    window.addEventListener('touchmove', (e) => {
+      if (e.touches && e.touches.length > 0) {
+        const touch = e.touches[0];
+        this.mouse.targetX = (touch.clientX / window.innerWidth) * 2 - 1;
+        this.mouse.targetY = -(touch.clientY / window.innerHeight) * 2 + 1;
+      }
+    }, { passive: true });
   }
 
   onMouseMove(e) {
@@ -175,7 +185,10 @@ class CanExperienceScene {
   }
 
   onWindowResize() {
+    const isMobile = window.innerWidth < 768;
     this.camera.aspect = window.innerWidth / window.innerHeight;
+    this.camera.fov = isMobile ? 54 : 38;
+    this.camera.position.z = isMobile ? 10.6 : 9.2;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));

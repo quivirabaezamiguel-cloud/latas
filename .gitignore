@@ -1,0 +1,7 @@
+# Dependencies & OS
+.DS_Store
+Thumbs.db
+*.log
+
+# Optional: Reference videos
+# ref/

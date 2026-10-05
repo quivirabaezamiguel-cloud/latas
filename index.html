@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OHIO // CYBERNETIC ENERGY 3D SHOWCASE</title>
+  <meta name="description" content="Découvrez OHIO, la boisson énergisante nouvelle génération. 3D interactive can experience, zéro sucre, caféine propre et nootropiques naturels.">
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Dynamic Ambient Glow Background -->
+  <div id="ambient-bg"></div>
+
+  <!-- Micro Film Grain Overlay -->
+  <div class="noise-overlay"></div>
+
+  <!-- Three.js 3D WebGL Canvas Layer -->
+  <div id="webgl-canvas-container"></div>
+
+  <!-- Dynamic 3D-to-2D SVG Hotspot Curves Overlay -->
+  <svg id="hotspots-svg">
+    <path id="line-sugar" class="hotspot-curve" d="M 0 0" />
+    <path id="line-caffeine" class="hotspot-curve" d="M 0 0" />
+    <path id="line-naturel" class="hotspot-curve" d="M 0 0" />
+  </svg>
+
+  <!-- 3D Anchor Pulsing Dots -->
+  <div id="hotspot-sugar" class="hotspot-anchor-dot"></div>
+  <div id="hotspot-caffeine" class="hotspot-anchor-dot"></div>
+  <div id="hotspot-naturel" class="hotspot-anchor-dot"></div>
+
+  <!-- ========================================================================
+       TOP NAVIGATION BAR
+       ======================================================================== -->
+  <header class="header-nav">
+    <div class="nav-pill-wrapper">
+      <a href="#hero" class="brand-badge" id="nav-brand-link">
+        <div class="brand-logo-mark">O</div>
+        <span class="brand-name-text">OHIO</span>
+      </a>
+
+      <!-- Sound Toggle Synthesizer Button -->
+      <button class="sound-toggle-btn" id="sound-toggle-btn" title="Activer / Désactiver le son">
+        <div class="sound-bars">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <span class="sound-btn-text">AUDIO OFF</span>
+      </button>
+    </div>
+
+    <!-- Pre-Order CTA & Cart Counter -->
+    <a href="#section-order" class="nav-cta-btn" id="nav-preorder-cta">
+      <span>PRÉCOMMANDER</span>
+      <span class="cart-count-badge" id="cart-badge">0</span>
+    </a>
+  </header>
+
+  <!-- ========================================================================
+       SCROLL CONTAINER
+       ======================================================================== -->
+  <main id="scroll-container">
+
+    <!-- ----------------------------------------------------------------------
+         SECTION 1: HERO (Centered 3D Can, Dynamic Branding & Quick Switcher)
+         ---------------------------------------------------------------------- -->
+    <section class="section-stage hero-stage" id="hero">
+      <div class="hero-bg-text-wrapper">
+        <div class="hero-mega-title">OHIO</div>
+      </div>
+
+      <div class="hero-center-badge reveal-up">
+        <span>⚡</span> <span class="flavor-badge-dynamic">EDITION LIMITÉE 2026</span>
+      </div>
+
+      <div class="hero-bottom-controls">
+        <!-- Quick Switcher Tabs -->
+        <div class="hero-flavor-switcher" id="hero-quick-tabs">
+          <button class="flavor-tab-btn active" data-flavor="litchi" id="tab-litchi">LITCHI</button>
+          <button class="flavor-tab-btn" data-flavor="kiwi" id="tab-kiwi">KIWI</button>
+          <button class="flavor-tab-btn" data-flavor="orange" id="tab-orange">ORANGE</button>
+          <button class="flavor-tab-btn" data-flavor="frost" id="tab-frost">FROST</button>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator-wrap">
+          <div class="scroll-mouse-icon">
+            <div class="scroll-mouse-wheel"></div>
+          </div>
+          <span>DÉFILEZ POUR EXPLORER</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------
+         SECTION 2: FLAVOR PROFILE (Can tilts right, typography on left)
+         ---------------------------------------------------------------------- -->
+    <section class="section-stage flavor-stage" id="section-flavor">
+      <div class="flavor-profile-content reveal-up">
+        <div class="tag-badge flavor-tagline-dynamic">WILD TROPICAL NOOTROPICS</div>
+        <h2 class="section-title">
+          <span class="flavor-name-dynamic">DOUBLE LITCHI</span>
+          FLOW CÉRÉBRAL ILLIMITÉ.
+        </h2>
+        <p class="section-desc flavor-desc-dynamic">
+          Infusion botanique de litchi sauvage d'Asie et grenade acidulée. Formulée pour stimuler le flow créatif sans aucun pic de sucre.
+        </p>
+
+        <!-- Stats Grid -->
+        <div class="stat-grid-mini">
+          <div class="stat-box">
+            <span class="stat-val" id="stat-sugar">0.0g</span>
+            <span class="stat-lbl">SUCRE RAFFINÉ</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-val" id="stat-caffeine">160mg</span>
+            <span class="stat-lbl">CAFÉINE PURE</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-val" id="stat-nootropics">500mg</span>
+            <span class="stat-lbl">NOOTROPIQUES</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------
+         SECTION 3: NUTRITIONAL HOTSPOTS (Can rotates 180° to back label)
+         ---------------------------------------------------------------------- -->
+    <section class="section-stage nutrition-stage" id="section-nutrition">
+      <div class="nutrition-cards-column">
+        
+        <!-- Card 1: Moins de sucre -->
+        <div class="nutrition-card reveal-up" id="card-sugar">
+          <div class="card-num">01 / FORMULATION</div>
+          <h3 class="card-title">MOINS DE SUCRE • 0g</h3>
+          <p class="card-desc">
+            Sucré exclusivement à l'extrait pur de fruit du moine et feuilles de stevia. Zéro crash glycémique, zéro calories superflues.
+          </p>
+        </div>
+
+        <!-- Card 2: 100% Ingrédients Naturels -->
+        <div class="nutrition-card reveal-up" id="card-naturel">
+          <div class="card-num">02 / BOTANIQUE</div>
+          <h3 class="card-title">100% INGRÉDIENTS NATURELS</h3>
+          <p class="card-desc">
+            Vrais jus de fruits pressés à froid et extraits de plantes adaptogènes. Zéro colorant artificiel, zéro conservateur chimique.
+          </p>
+        </div>
+
+        <!-- Card 3: Nootropics & Clean Matrix -->
+        <div class="nutrition-card reveal-up" id="card-caffeine">
+          <div class="card-num">03 / PERFORMANCE</div>
+          <h3 class="card-title">CLEAN ENERGY MATRIX</h3>
+          <p class="card-desc">
+            Caféine extraite de feuilles de thé vert biologique combinée à la L-Théanine et Crinière de Lion pour une clarté mentale continue de 6 heures.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------
+         SECTION 4: MANIFESTO / "ZERO BULLSHIT" (Macro close-up on can pull-tab)
+         ---------------------------------------------------------------------- -->
+    <section class="section-stage manifesto-stage" id="section-manifesto">
+      <div class="marquee-container">
+        <div class="marquee-strip" id="marquee-strip">
+          <span class="marquee-item glow">ZERO BULLSHIT</span>
+          <span class="marquee-item outline">•</span>
+          <span class="marquee-item outline">ZERO CRASH</span>
+          <span class="marquee-item outline">•</span>
+          <span class="marquee-item glow">ZERO TAURINE</span>
+          <span class="marquee-item outline">•</span>
+          <span class="marquee-item outline">100% PERFORMANCE</span>
+          <span class="marquee-item outline">•</span>
+          <span class="marquee-item glow">ZERO BULLSHIT</span>
+          <span class="marquee-item outline">•</span>
+          <span class="marquee-item outline">ZERO CRASH</span>
+        </div>
+      </div>
+
+      <div class="manifesto-text-bottom reveal-up">
+        Nous avons banni les ingrédients douteux des boissons énergisantes traditionnelles. Pas de colorants fluorescents, pas de montée brutale suivie d'épuisement. Juste une clarté pure et affûtée.
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------
+         SECTION 5: THE MULTIVERSE (Interactive Flavor Grid & 3D Switcher)
+         ---------------------------------------------------------------------- -->
+    <section class="section-stage lineup-stage" id="section-lineup">
+      <div class="lineup-header reveal-up">
+        <div class="tag-badge">THE FLAVOR MATRIX</div>
+        <h2 class="section-title">CHOISISSEZ VOTRE ÉNERGIE</h2>
+        <p class="section-desc">Cliquez sur une saveur pour métamorphoser la canette 3D et explorer chaque formule.</p>
+      </div>
+
+      <div class="flavor-cards-grid">
+        <!-- Flavor 1: Litchi -->
+        <div class="flavor-card active" data-flavor="litchi" style="--card-color: #a855f7;">
+          <div class="flavor-color-dot"></div>
+          <h3 class="flavor-card-name">DOUBLE LITCHI</h3>
+          <div class="flavor-card-tag">Wild Nootropics</div>
+          <button class="flavor-card-btn">ACTIVER 3D</button>
+        </div>
+
+        <!-- Flavor 2: Kiwi -->
+        <div class="flavor-card" data-flavor="kiwi" style="--card-color: #22c55e;">
+          <div class="flavor-color-dot"></div>
+          <h3 class="flavor-card-name">KIWI CONCOMBRE</h3>
+          <div class="flavor-card-tag">Botanical Boost</div>
+          <button class="flavor-card-btn">ACTIVER 3D</button>
+        </div>
+
+        <!-- Flavor 3: Orange -->
+        <div class="flavor-card" data-flavor="orange" style="--card-color: #f97316;">
+          <div class="flavor-color-dot"></div>
+          <h3 class="flavor-card-name">SOLAR ORANGE</h3>
+          <div class="flavor-card-tag">High Vibration</div>
+          <button class="flavor-card-btn">ACTIVER 3D</button>
+        </div>
+
+        <!-- Flavor 4: Frost -->
+        <div class="flavor-card" data-flavor="frost" style="--card-color: #06b6d4;">
+          <div class="flavor-color-dot"></div>
+          <h3 class="flavor-card-name">ARCTIC FROST</h3>
+          <div class="flavor-card-tag">Sub-Zero Focus</div>
+          <button class="flavor-card-btn">ACTIVER 3D</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------
+         SECTION 6: PRE-ORDER & CHECKOUT (Hero can pose + order widget)
+         ---------------------------------------------------------------------- -->
+    <section class="section-stage order-stage" id="section-order">
+      <div class="order-box reveal-up">
+        <div class="order-box-header">
+          <div class="tag-badge flavor-badge-dynamic">PRE-ORDER DROP 01</div>
+          <h2 class="order-box-title">COMMANDEZ VOTRE PACK</h2>
+          <p class="section-desc">Saveur sélectionnée: <strong class="flavor-name-dynamic" style="color: var(--color-accent);">DOUBLE LITCHI</strong></p>
+        </div>
+
+        <!-- Pack Size Selector -->
+        <div class="pack-options-grid">
+          <div class="pack-option-btn" data-pack="4">
+            <span class="pack-size">4 PACK</span>
+            <span class="pack-badge">DÉCOUVERTE</span>
+          </div>
+          <div class="pack-option-btn active" data-pack="12">
+            <span class="pack-size">12 PACK</span>
+            <span class="pack-badge">-15% POPULAIRE</span>
+          </div>
+          <div class="pack-option-btn" data-pack="24">
+            <span class="pack-size">24 PACK</span>
+            <span class="pack-badge">-25% MASTER</span>
+          </div>
+        </div>
+
+        <!-- Quantity & Price Row -->
+        <div class="qty-price-row">
+          <div class="qty-counter">
+            <button class="qty-btn" id="qty-minus" aria-label="Moins">-</button>
+            <span id="pack-qty-display">1</span>
+            <button class="qty-btn" id="qty-plus" aria-label="Plus">+</button>
+          </div>
+
+          <div class="order-total-block">
+            <span class="total-label">TOTAL ESTIMÉ</span>
+            <div id="order-total-price">$38.99</div>
+          </div>
+        </div>
+
+        <!-- CTA Order Button -->
+        <button class="btn-primary-order" id="order-submit-btn">
+          <span>AJOUTER AU PANIER</span>
+          <span>⚡</span>
+        </button>
+
+        <p class="order-guarantee-note">
+          📦 Livraison express offerte • Aluminium 100% recyclable • Garantie satisfait ou remboursé 30 jours
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================
+       CART SLIDE-OUT DRAWER
+       ======================================================================== -->
+  <aside id="cart-drawer" aria-label="Panier">
+    <div class="cart-header">
+      <h3 class="cart-title">VOTRE PANIER</h3>
+      <button class="cart-close-btn" id="cart-close-btn" aria-label="Fermer">✕</button>
+    </div>
+
+    <div class="cart-body">
+      <div class="cart-item-card">
+        <h4 class="cart-item-title" id="cart-flavor-name">DOUBLE LITCHI</h4>
+        <p class="cart-item-sub" id="cart-pack-details">Pack de 12 canettes (1x)</p>
+      </div>
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-subtotal-row">
+        <span>SOUS-TOTAL</span>
+        <span id="cart-subtotal">$38.99</span>
+      </div>
+      <button class="btn-primary-order" onclick="alert('Commande validée ! Bienvenue dans le flow OHIO.')">
+        PASSER LA COMMANDE
+      </button>
+    </div>
+  </aside>
+
+  <!-- ========================================================================
+       SITE FOOTER
+       ======================================================================== -->
+  <footer class="site-footer">
+    <div>
+      <strong>OHIO BEVERAGES LAB © 2026</strong> — Conçu pour l'excellence et le flow créatif.
+    </div>
+    <div class="footer-links">
+      <a href="#hero">Haut de page</a>
+      <a href="#section-nutrition">Ingrédients</a>
+      <a href="#section-lineup">Saveurs</a>
+      <a href="#section-order">Boutique</a>
+    </div>
+  </footer>
+
+  <!-- CDN Dependencies -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+
+  <!-- Application Logic -->
+  <script src="js/flavors.js"></script>
+  <script src="js/can-model.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/three-scene.js"></script>
+  <script src="js/scroll-controller.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
